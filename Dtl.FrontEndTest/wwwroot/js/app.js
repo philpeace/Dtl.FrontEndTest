@@ -145,7 +145,10 @@ var Dtl;
                 this.$http = $http;
             }
             DealRepository.prototype.get = function () {
-                return null;
+                var deals = this.$http.get('/data/deals.json').then(function (result) {
+                    return result.data;
+                });
+                return deals;
             };
             return DealRepository;
         }());

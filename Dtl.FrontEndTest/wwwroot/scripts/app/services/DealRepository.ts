@@ -8,7 +8,11 @@
         }
 
         get(): ng.IPromise<Dtl.Models.DealResult> {
-            return null;
+            const deals = this.$http.get<Dtl.Models.DealResult>('/data/deals.json').then(result => {
+                return result.data;
+            });
+
+            return deals;
         }
     }
 
