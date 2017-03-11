@@ -180,6 +180,12 @@ var Dtl;
                         if (productTypeCount === foundProducts) {
                             return deal;
                         }
+                        if (deal.speed.label === query.speed) {
+                            return deal;
+                        }
+                        if (deal.mobile && deal.mobile.data.label === query.data) {
+                            return deal;
+                        }
                         return false;
                     });
                     return filteredDeals;
