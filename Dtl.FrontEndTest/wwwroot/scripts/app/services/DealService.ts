@@ -6,6 +6,7 @@ module Dtl.Services {
 
         fetch(query: Dtl.Models.DealQuery): ng.IPromise<Array<Dtl.Models.Deal>> {
             var dealData = this.dealRepository.get().then(result => {
+                console.log(result);
                 let filteredDeals = result.deals.filter(deal => {
                     const productTypeCount = query.productTypes.length;
                     let foundProducts = 0;
@@ -18,7 +19,12 @@ module Dtl.Services {
                     if (productTypeCount === foundProducts) {
                         return deal;
                     }
-
+                    //if (deal.speed.label === query.speed) {
+                    //    return deal;
+                    //}
+                    //if (deal.mobile && deal.mobile.data.label === query.data) {
+                    //    return deal;
+                    //}
                     return false;
                 });
 

@@ -168,6 +168,7 @@ var Dtl;
             }
             DealService.prototype.fetch = function (query) {
                 var dealData = this.dealRepository.get().then(function (result) {
+                    console.log(result);
                     var filteredDeals = result.deals.filter(function (deal) {
                         var productTypeCount = query.productTypes.length;
                         var foundProducts = 0;
