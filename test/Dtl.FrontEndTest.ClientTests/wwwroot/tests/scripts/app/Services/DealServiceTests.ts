@@ -66,7 +66,65 @@ describe('Deal Service Tests', () => {
 
             dealService.fetch(query).then((r) => {
                 result = r;
-                console.log('Inside promise');
+            });
+            scope.$digest();
+            expect(result.length).toBe(1);
+        });
+        it('The Service filters by Speed', () => {
+
+            var spy = spyOn(dealRepository, 'get').and.callFake(() => {
+                const deferred = $q.defer();
+
+                var deals = new Array<Dtl.Models.Deal>();
+                let deal = new Dtl.Models.Deal();
+                deal.speed = new Dtl.Models.DataItem();
+                deal.speed.label = 'bar';
+                deals.push(deal);
+
+                var dealResult = new Dtl.Models.DealResult();
+                dealResult.deals = deals;
+
+                deferred.resolve(dealResult);
+
+                return deferred.promise;
+            });
+
+            var query = new Dtl.Models.DealQuery();
+            query.speed = 'bar';
+            var result;
+
+            dealService.fetch(query).then((r) => {
+                result = r;
+            });
+            scope.$digest();
+            expect(result.length).toBe(1);
+        });
+        it('The Service filters by Data', () => {
+
+            var spy = spyOn(dealRepository, 'get').and.callFake(() => {
+                const deferred = $q.defer();
+
+                var deals = new Array<Dtl.Models.Deal>();
+                let deal = new Dtl.Models.Deal();
+                deal.mobile = new Dtl.Models.Mobile();
+                deal.mobile.data = new Dtl.Models.DataItem();
+                deal.mobile.data.label = 'baz';
+                deals.push(deal);
+
+                var dealResult = new Dtl.Models.DealResult();
+                dealResult.deals = deals;
+
+                deferred.resolve(dealResult);
+
+                return deferred.promise;
+            });
+
+            var query = new Dtl.Models.DealQuery();
+            query.data = 'baz';
+            var result;
+
+            dealService.fetch(query).then((r) => {
+                result = r;
             });
             scope.$digest();
             expect(result.length).toBe(1);
