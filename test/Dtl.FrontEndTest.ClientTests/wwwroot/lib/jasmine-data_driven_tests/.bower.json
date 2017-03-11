@@ -1,0 +1,27 @@
+{
+  "name": "jasmine-data_driven_tests",
+  "description": "This plugin for Jasmine 2.x allows you to easily create data driven tests.",
+  "version": "1.1.1",
+  "homepage": "https://github.com/gburghardt/jasmine-data_driven_tests",
+  "authors": [
+    "Greg Burghardt <greg_burghardt@yahoo.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gburghardt/jasmine-data_driven_tests.git"
+  },
+  "main": "src/all.js",
+  "dependencies": {
+    "jasmine": "^2.0.0"
+  },
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.1",
+    "commit": "c80a8916bb12094b975b5549209163a8f6b75a9f"
+  },
+  "_source": "https://github.com/gburghardt/jasmine-data_driven_tests.git",
+  "_target": "1.1.1",
+  "_originalSource": "jasmine-data_driven_tests"
+}

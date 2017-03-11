@@ -2,41 +2,81 @@
     ViewData["Title"] = "Decision Tech";
 }
 
-<div class="container">
+<div ng-app="app.dtl" ng-controller="DealController as vm" class="container">
     <header>
-        <button type="button" id="toggleMenu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <button type="button" id="toggleMenu" ng-click="vm.toggleSideNav()"></button>
     </header>
     <main>
-        <nav>
-            <ul>
-                <li>Filter</li>
-                <li>Filter</li>
-                <li>Filter</li>
-            </ul>
+        <nav ng-class="{open: vm.showSideMenu}">
+            <form method="GET">
+                <ul ng-repeat="p in vm.productTypes">
+                    <li><label for="{{'productType' + p}}"><input id="{{'productType' + p}}" type="checkbox" name="productType" value="{{p}}" ng-click="vm.toggleProductType(p)" /> {{p}}</label></li>
+                </ul>
+                <p>
+                    <label for="speed">
+                        Speed
+                        <select name="speed" id="speed" ng-model="vm.dealQuery.speed" ng-change="vm.speedChanged()">
+                            <option value="">--- ANY ---</option>
+                            <option value="17">17Mb/s</option>
+                            <option value="56">56Mb/s</option>
+                            <option value="72">72Mb/s</option>
+                        </select>
+                    </label>
+                </p>
+                <p>
+                    <label for="data">
+                        Data
+                        <select name="data" id="data" ng-model="vm.dealQuery.data" ng-change="vm.dataChanged()">
+                            <option value="">--- ANY ---</option>
+                            <option value="2 GB">2 GB</option>
+                            <option value="5 GB">5 GB</option>
+                        </select>
+                    </label>
+                </p>
+            </form>
         </nav>
         <article>
-            <table>
+            <table ng-cloak>
                 <thead>
-                    <tr>
-                        <th>h</th>
-                        <th>j</th>
-                        <th>k</th>
-                        <th>g</th>
-                    </tr>
+                <tr>
+                    <th>About</th>
+                    <th>Contact length</th>
+                    <th>Speed / Usage</th>
+                    <th>Offer</th>
+                    <th>TV</th>
+                    <th>Mobile</th>
+                    <th>Cost</th>
+                </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                    </tr>
+                <tbody ng-repeat="d in vm.deals">
+                <tr>
+                    <td>{{d.title}}</td>
+                    <td>{{d.contractLength}} months</td>
+                    <td>{{d.speed.label}}Mb <br/>{{d.usage.label}}</td>
+                    <td><img ng-if="d.offer && d.offer.smallLogo" ng-src="{{d.offer.smallLogo}}" alt="{{d.offer.title}}"/></td>
+                    <td>
+                        <ul ng-if="d.popularChannels" ng-repeat="c in d.popularChannels">
+                            <li ng-if="c.logo"><img ng-src="{{c.logo}}" alt="{{c.name}}" /></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul ng-if="d.mobile">
+                            <li>Minutes: {{d.mobile.minutes.label}}</li>
+                            <li>Data: {{d.mobile.data.label}}</li>
+                            <li>Texts: {{d.mobile.texts.label}}</li>
+                            <li>Connection: {{d.mobile.connectionType.label}}</li>
+                        </ul>
+                    </td>
+                    <td>{{d.cost}}</td>
+                </tr>
                 </tbody>
             </table>
         </article>
     </main>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+}

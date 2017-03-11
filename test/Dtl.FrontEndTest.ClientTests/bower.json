@@ -1,0 +1,14 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "install": {
+    "path": "lib"
+  },
+  "dependencies": {
+    "jasmine": "2.5.2",
+    "jasmine-data_driven_tests": "1.1.1",
+    "jasmine-expect": "3.6.0",
+    "angular": "1.6.2",
+    "angular-mocks": "1.6.2"
+  }
+}

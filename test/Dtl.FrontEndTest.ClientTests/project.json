@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+  },
+  "frameworks": {
+    "net452": {
+      "frameworkAssemblies": {
+
+      }
+    }
+  },
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+  "publishOptions": {
+
+  },
+  "scripts": {
+    "postcompile": [ "karma start karma.conf.js" ]
+  }
+}

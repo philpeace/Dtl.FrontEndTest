@@ -7,8 +7,11 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dtl.FrontEndTest", "Dtl.Fro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E59BF439-9F27-4A03-930D-D6C23B3E5B37}"
 	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dtl.FrontEndTest.ClientTests", "test\Dtl.FrontEndTest.ClientTests\Dtl.FrontEndTest.ClientTests.xproj", "{E6E958AC-06C8-4233-A479-0C444709E816}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +23,10 @@ Global
 		{024B6A43-4252-45B3-BEEC-9FDA2871817C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{024B6A43-4252-45B3-BEEC-9FDA2871817C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{024B6A43-4252-45B3-BEEC-9FDA2871817C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6E958AC-06C8-4233-A479-0C444709E816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6E958AC-06C8-4233-A479-0C444709E816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6E958AC-06C8-4233-A479-0C444709E816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6E958AC-06C8-4233-A479-0C444709E816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
