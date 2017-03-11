@@ -167,7 +167,22 @@ var Dtl;
                 this.dealRepository = dealRepository;
             }
             DealService.prototype.fetch = function (query) {
-                var dealData = null;
+                var dealData = this.dealRepository.get().then(function (result) {
+                    var filteredDeals = result.deals.filter(function (deal) {
+                        var productTypeCount = query.productTypes.length;
+                        var foundProducts = 0;
+                        for (var i = 0; i < query.productTypes.length; i++) {
+                            if (deal.productTypes.indexOf(query.productTypes[i]) > -1) {
+                                foundProducts++;
+                            }
+                        }
+                        if (productTypeCount === foundProducts) {
+                            return deal;
+                        }
+                        return false;
+                    });
+                    return filteredDeals;
+                });
                 return dealData;
             };
             return DealService;

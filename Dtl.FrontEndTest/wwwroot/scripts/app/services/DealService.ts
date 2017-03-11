@@ -5,7 +5,25 @@ module Dtl.Services {
         }
 
         fetch(query: Dtl.Models.DealQuery): ng.IPromise<Array<Dtl.Models.Deal>> {
-            var dealData = null;
+            var dealData = this.dealRepository.get().then(result => {
+                let filteredDeals = result.deals.filter(deal => {
+                    const productTypeCount = query.productTypes.length;
+                    let foundProducts = 0;
+                    for (let i = 0;i < query.productTypes.length;i++) {
+                        if (deal.productTypes.indexOf(query.productTypes[i]) > -1) {
+                            foundProducts++;
+                        }
+                    }
+
+                    if (productTypeCount === foundProducts) {
+                        return deal;
+                    }
+
+                    return false;
+                });
+
+                return filteredDeals;
+            });
 
             return dealData;
         }
