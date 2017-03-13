@@ -27,9 +27,15 @@ var Dtl;
             };
             DealController.prototype.search = function () {
                 var _this = this;
-                this.dealService.fetch(this.dealQuery).then(function (result) {
-                    _this.deals = result;
-                });
+                if (!this.dealQuery.isInvalid()) {
+                    this.dealService.fetch(this.dealQuery).then(function (result) {
+                        _this.deals = result;
+                    });
+                }
+                else {
+                    console.log('invalid');
+                    this.deals = [];
+                }
             };
             DealController.prototype.speedChanged = function () {
                 this.search();
@@ -91,6 +97,8 @@ var Dtl;
         var DealQuery = (function () {
             function DealQuery() {
                 this.productTypes = [];
+                this.speed = '';
+                this.data = '';
             }
             DealQuery.prototype.isInvalid = function () {
                 return this.productTypes.length === 0 && this.speed.length === 0 && this.data.length === 0;

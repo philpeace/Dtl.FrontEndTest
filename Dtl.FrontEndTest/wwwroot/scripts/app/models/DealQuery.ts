@@ -2,6 +2,8 @@
     export class DealQuery {
         constructor() {
             this.productTypes = [];
+            this.speed = '';
+            this.data = '';
         }
 
         productTypes: Array<string>;

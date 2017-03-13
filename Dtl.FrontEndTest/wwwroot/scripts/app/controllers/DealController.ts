@@ -29,9 +29,14 @@
         }
 
         search() {
-            this.dealService.fetch(this.dealQuery).then(result => {
-                this.deals = result;
-            });
+            if (!this.dealQuery.isInvalid()) {
+                this.dealService.fetch(this.dealQuery).then(result => {
+                    this.deals = result;
+                });
+            } else {
+                console.log('invalid');
+                this.deals = [];
+            }
         }
 
         speedChanged() {
