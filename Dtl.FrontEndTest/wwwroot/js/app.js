@@ -10,7 +10,7 @@ var Dtl;
     (function (Controllers) {
         var DealController = (function () {
             function DealController($scope, dealService) {
-                this.productTypes = ['Broadband', 'TV', 'Mobile'];
+                this.productTypes = ['Broadband', 'TV', 'Mobile', 'Phone'];
                 this.scope = $scope;
                 this.dealService = dealService;
                 this.dealQuery = new Dtl.Models.DealQuery();
@@ -165,28 +165,29 @@ var Dtl;
         var DealService = (function () {
             function DealService(dealRepository) {
                 this.dealRepository = dealRepository;
+                this.filters = [
+                    new Dtl.Services.Filters.ProductTypeFilter(),
+                    new Dtl.Services.Filters.SpeedFilter(),
+                    new Dtl.Services.Filters.MobileDataFilter()
+                ];
             }
             DealService.prototype.fetch = function (query) {
+                var _this = this;
                 var dealData = this.dealRepository.get().then(function (result) {
-                    console.log(result);
+                    var activeFilters = [];
+                    for (var j = 0; j < _this.filters.length; j++) {
+                        if (_this.filters[j].shouldFilter(query)) {
+                            activeFilters.push(_this.filters[j]);
+                        }
+                    }
                     var filteredDeals = result.deals.filter(function (deal) {
-                        var productTypeCount = query.productTypes.length;
-                        var foundProducts = 0;
-                        for (var i = 0; i < query.productTypes.length; i++) {
-                            if (deal.productTypes.indexOf(query.productTypes[i]) > -1) {
-                                foundProducts++;
+                        var filteredCount = 0;
+                        for (var f = 0; f < activeFilters.length; f++) {
+                            if (activeFilters[f].filter(query, deal)) {
+                                filteredCount++;
                             }
                         }
-                        if (productTypeCount === foundProducts) {
-                            return deal;
-                        }
-                        if (deal.speed.label === query.speed) {
-                            return deal;
-                        }
-                        if (deal.mobile && deal.mobile.data.label === query.data) {
-                            return deal;
-                        }
-                        return false;
+                        return filteredCount === activeFilters.length;
                     });
                     return filteredDeals;
                 });
@@ -198,6 +199,94 @@ var Dtl;
         angular
             .module('dtl')
             .service('dealService', ['dealRepository', function (dealRepository) { return new DealService(dealRepository); }]);
+    })(Services = Dtl.Services || (Dtl.Services = {}));
+})(Dtl || (Dtl = {}));
+var Dtl;
+(function (Dtl) {
+    var Services;
+    (function (Services) {
+        var Filters;
+        (function (Filters) {
+            var MobileDataFilter = (function () {
+                function MobileDataFilter() {
+                }
+                MobileDataFilter.prototype.shouldFilter = function (query) {
+                    var isValid = query.data && query.data.length > 0;
+                    console.log("MobileFilter.shouldFilter = " + isValid);
+                    return isValid;
+                };
+                MobileDataFilter.prototype.filter = function (query, deal) {
+                    if (deal.mobile && deal.mobile.data && deal.mobile.data.label === query.data) {
+                        console.info('MobileFilter.Filter', deal.mobile.data.label, query.data);
+                        return true;
+                    }
+                };
+                return MobileDataFilter;
+            }());
+            Filters.MobileDataFilter = MobileDataFilter;
+        })(Filters = Services.Filters || (Services.Filters = {}));
+    })(Services = Dtl.Services || (Dtl.Services = {}));
+})(Dtl || (Dtl = {}));
+var Dtl;
+(function (Dtl) {
+    var Services;
+    (function (Services) {
+        var Filters;
+        (function (Filters) {
+            var ProductTypeFilter = (function () {
+                function ProductTypeFilter() {
+                }
+                ProductTypeFilter.prototype.shouldFilter = function (query) {
+                    var isValid = query.productTypes.length > 0;
+                    console.log("ProductTypeFilter.shouldFilter = " + isValid);
+                    return isValid;
+                };
+                ProductTypeFilter.prototype.filter = function (query, deal) {
+                    var productTypeCount = query.productTypes.length;
+                    console.info('ProductTypeFilter.Filter', deal.productTypes, query.productTypes);
+                    if (productTypeCount > 0) {
+                        var foundProducts = 0;
+                        for (var i = 0; i < query.productTypes.length; i++) {
+                            if (deal.productTypes.indexOf(query.productTypes[i]) > -1) {
+                                foundProducts++;
+                            }
+                        }
+                        if (productTypeCount === foundProducts) {
+                            return true;
+                        }
+                    }
+                    return false;
+                };
+                return ProductTypeFilter;
+            }());
+            Filters.ProductTypeFilter = ProductTypeFilter;
+        })(Filters = Services.Filters || (Services.Filters = {}));
+    })(Services = Dtl.Services || (Dtl.Services = {}));
+})(Dtl || (Dtl = {}));
+var Dtl;
+(function (Dtl) {
+    var Services;
+    (function (Services) {
+        var Filters;
+        (function (Filters) {
+            var SpeedFilter = (function () {
+                function SpeedFilter() {
+                }
+                SpeedFilter.prototype.shouldFilter = function (query) {
+                    var isValid = query.speed && query.speed.length > 0;
+                    console.log("SpeedFilter.shouldFilter = " + isValid);
+                    return isValid;
+                };
+                SpeedFilter.prototype.filter = function (query, deal) {
+                    if (deal.speed && deal.speed.label === query.speed) {
+                        console.info('SpeedFilter.Filter', deal.speed.label, query.speed);
+                        return true;
+                    }
+                };
+                return SpeedFilter;
+            }());
+            Filters.SpeedFilter = SpeedFilter;
+        })(Filters = Services.Filters || (Services.Filters = {}));
     })(Services = Dtl.Services || (Dtl.Services = {}));
 })(Dtl || (Dtl = {}));
 //# sourceMappingURL=app.js.map

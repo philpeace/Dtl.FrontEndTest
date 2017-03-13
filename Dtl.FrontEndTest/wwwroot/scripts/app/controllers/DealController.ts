@@ -4,7 +4,7 @@
         dealService: Dtl.Services.IDealService;
         deals: Array<Dtl.Models.Deal>;
         dealQuery: Dtl.Models.DealQuery;
-        productTypes: Array<string> = ['Broadband', 'TV', 'Mobile'];
+        productTypes: Array<string> = ['Broadband', 'TV', 'Mobile', 'Phone'];
         showSideMenu: boolean;
 
         constructor($scope: ng.IScope, dealService: Dtl.Services.IDealService) {

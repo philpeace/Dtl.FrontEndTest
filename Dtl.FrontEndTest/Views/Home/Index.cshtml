@@ -18,8 +18,8 @@
                         <select name="speed" id="speed" ng-model="vm.dealQuery.speed" ng-change="vm.speedChanged()">
                             <option value="">--- ANY ---</option>
                             <option value="17">17Mb/s</option>
-                            <option value="56">56Mb/s</option>
-                            <option value="72">72Mb/s</option>
+                            <option value="52">52Mb/s</option>
+                            <option value="76">76Mb/s</option>
                         </select>
                     </label>
                 </p>
@@ -50,7 +50,12 @@
                 </thead>
                 <tbody ng-repeat="d in vm.deals">
                 <tr>
-                    <td>{{d.title}}</td>
+                    <td>
+                        {{d.title}}
+                        
+                        <span ng-repeat="p in d.productTypes">{{p}},</span>
+
+                    </td>
                     <td>{{d.contractLength}} months</td>
                     <td>{{d.speed.label}}Mb <br/>{{d.usage.label}}</td>
                     <td><img ng-if="d.offer && d.offer.smallLogo" ng-src="{{d.offer.smallLogo}}" alt="{{d.offer.title}}"/></td>
