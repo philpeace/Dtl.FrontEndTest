@@ -2,11 +2,17 @@
 
 ## Running the project
 
+The main web project is `Dtl.FrontEndTest`
+
 `Ctrl-F5` from within Visual Studio 2015
 
 or
 
-`dotnet run` from the command line.
+From the command line.
+
+`dotnet restore`
+`dotnet build`
+`dotnet run`
 
 ## Running the tests
 

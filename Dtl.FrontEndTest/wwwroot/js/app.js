@@ -14,6 +14,7 @@ var Dtl;
                 this.scope = $scope;
                 this.dealService = dealService;
                 this.dealQuery = new Dtl.Models.DealQuery();
+                this.deals = [];
             }
             DealController.prototype.toggleProductType = function (p) {
                 var idx = this.dealQuery.productTypes.indexOf(p);
@@ -33,7 +34,6 @@ var Dtl;
                     });
                 }
                 else {
-                    console.log('invalid');
                     this.deals = [];
                 }
             };

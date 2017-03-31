@@ -36,7 +36,7 @@
             </form>
         </nav>
         <article>
-            <table ng-cloak>
+            <table ng-cloak ng-if="vm.deals.length > 0">
                 <thead>
                 <tr>
                     <th>About</th>
@@ -76,6 +76,7 @@
                 </tr>
                 </tbody>
             </table>
+            <p ng-if="vm.deals.length === 0">No deals found</p>
         </article>
     </main>
 </div>
