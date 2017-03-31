@@ -11,7 +11,9 @@ or
 From the command line.
 
 `dotnet restore`
+
 `dotnet build`
+
 `dotnet run`
 
 ## Running the tests
